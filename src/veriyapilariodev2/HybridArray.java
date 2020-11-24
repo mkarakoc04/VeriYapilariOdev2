@@ -41,7 +41,7 @@ public class HybridArray {
     }
 
     public void arayaEkle(int indis, int yeniVeri) {
-        BagliListe eklenecekYer =elemaniBul(indis);
+        BagliListe eklenecekYer = elemaniBul(indis);
         //System.out.println("eklenecekYer = " + eklenecekYer.veri+" "+eklenecekYer.sonraki);
         if (eklenecekYer == null) {
             System.out.println("Verilen indis hatalı");
@@ -51,9 +51,9 @@ public class HybridArray {
         //System.out.println("yeniEleman = " + yeniEleman.veri);
         yeniEleman.sonraki = eklenecekYer;
         yeniEleman.onceki = eklenecekYer.onceki;
-        eklenecekYer.onceki.sonraki=yeniEleman;
-        eklenecekYer.onceki=yeniEleman;
-        
+        eklenecekYer.onceki.sonraki = yeniEleman;
+        eklenecekYer.onceki = yeniEleman;
+
 //        if (yeniEleman.sonraki != null) {
 //            yeniEleman.sonraki.onceki = yeniEleman;
 //        }
@@ -88,12 +88,18 @@ public class HybridArray {
     }
 
     public void elemanSil(int indis) {
-        BagliListe gec = ilkEleman;
-        for (int i = 0; i < indis; i++) {
-            gec = gec.sonraki;
+        BagliListe silinecek = elemaniBul(indis);
+        if (silinecek != null) {
+            if (silinecek.sonraki != null) {
+                silinecek.sonraki.onceki = silinecek.onceki;
+            }
+            if (silinecek.onceki != null) {
+                silinecek.onceki.sonraki = silinecek.sonraki;
+            }
+        } else {
+            System.out.println("Geçerli bir indis girin");
         }
-        gec.onceki = gec.sonraki;
-        gec.sonraki.onceki = gec.onceki;
+
     }
 
     public BagliListe sonElemaniBul() {
@@ -115,22 +121,26 @@ public class HybridArray {
 
     public BagliListe elemaniBul(int indis) {
         BagliListe eleman = ilkEleman;
-         
-        //System.out.println("eleman = " + eleman.veri+" " + eleman.sonraki.veri+" " + eleman.sonraki.sonraki.veri);
-        for (int i=0; i < indis; i++) {
-            eleman = eleman.sonraki;
-           // System.out.println("i:"+i);
+        try {
+            for (int i = 0; i < indis; i++) {
+                eleman = eleman.sonraki;
+            }
+        } catch (Exception ex) {
+            return null;
         }
-         //System.out.println("indis:"+indis);
-         //System.out.println("eleman:"+eleman.veri);
+
         return eleman;
     }
 
     public void temizle() {
-        ilkEleman.sonraki = null;
+        ilkEleman = null;
     }
 
     public int boyutuGetir() {
+         if (ilkEleman==null) {
+          
+            return 0;
+        }
         int boyut = 1;
         BagliListe gec = ilkEleman;
         while (gec.sonraki != null) {
@@ -141,6 +151,10 @@ public class HybridArray {
     }
 
     public void ekranaYaz() {
+        if (ilkEleman==null) {
+            System.out.println("Listede eleman yok");
+            return;
+        }
         String veriler = "";
         BagliListe gec = ilkEleman;
         veriler += String.valueOf(gec.veri);
@@ -150,15 +164,15 @@ public class HybridArray {
         }
         System.out.println("Veriler\n" + veriler);
     }
-    
-      public void ekranaYaz(String mesaj) {
-        String veriler ="";
+
+    public void ekranaYaz(String mesaj) {
+        String veriler = "";
         BagliListe gec = ilkEleman;
         veriler += String.valueOf(gec.veri);
         while (gec.sonraki != null) {
             gec = gec.sonraki;
             veriler += ", " + String.valueOf(gec.veri);
         }
-        System.out.println(mesaj+"\nVeriler: " + veriler);
+        System.out.println(mesaj + "\nVeriler: " + veriler);
     }
 }
