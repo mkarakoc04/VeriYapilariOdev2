@@ -40,6 +40,8 @@ public class TestHybridArray {
          liste.ekranaYaz();
          System.out.println("Boyut:" +liste.boyutuGetir());
        
+        TestIspat test=new TestIspat();
+        
         
     }
 
