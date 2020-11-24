@@ -100,4 +100,37 @@ public class HybridArray {
         }
         return gec;
     }
+
+    public int oku(int indis) {
+        BagliListe eleman = ilkEleman;
+        for (int i = 0; i < indis; i++) {
+            eleman = ilkEleman.sonraki;
+        }
+        return eleman.veri;
+    }
+
+    public void temizle() {
+        ilkEleman.onceki = null;
+    }
+
+    public int boyutuGetir() {
+        int boyut = 1;
+        BagliListe gec = ilkEleman;
+        while (gec.sonraki != null) {
+            gec = gec.sonraki;
+            boyut++;
+        }
+        return boyut;
+    }
+
+    public void ekranaYaz() {
+        String veriler = "";
+        BagliListe gec = ilkEleman;
+        veriler += String.valueOf(gec.veri);
+        while (gec.sonraki != null) {
+            gec = gec.sonraki;
+            veriler += ", " + String.valueOf(gec.veri);
+        }
+        System.out.println("Veriler\n"+veriler);
+    }
 }
