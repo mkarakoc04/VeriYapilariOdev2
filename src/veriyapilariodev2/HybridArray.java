@@ -40,19 +40,23 @@ public class HybridArray {
         ilkEleman = yeniEleman;
     }
 
-    public void arayaEkle(BagliListe eklenecekYer, int yeniVeri) {
-
+    public void arayaEkle(int indis, int yeniVeri) {
+        BagliListe eklenecekYer =elemaniBul(indis);
+        //System.out.println("eklenecekYer = " + eklenecekYer.veri+" "+eklenecekYer.sonraki);
         if (eklenecekYer == null) {
             System.out.println("Verilen indis hatalı");
             return;
         }
         BagliListe yeniEleman = new BagliListe(yeniVeri);
-        yeniEleman.sonraki = eklenecekYer.onceki;
-        eklenecekYer.sonraki = yeniEleman;
-        yeniEleman.onceki = eklenecekYer;
-        if (yeniEleman.sonraki != null) {
-            yeniEleman.sonraki.onceki = yeniEleman;
-        }
+        //System.out.println("yeniEleman = " + yeniEleman.veri);
+        yeniEleman.sonraki = eklenecekYer;
+        yeniEleman.onceki = eklenecekYer.onceki;
+        eklenecekYer.onceki.sonraki=yeniEleman;
+        eklenecekYer.onceki=yeniEleman;
+        
+//        if (yeniEleman.sonraki != null) {
+//            yeniEleman.sonraki.onceki = yeniEleman;
+//        }
     }
 
     void sonaEkle(int yeniVeri) {
@@ -109,8 +113,21 @@ public class HybridArray {
         return eleman.veri;
     }
 
+    public BagliListe elemaniBul(int indis) {
+        BagliListe eleman = ilkEleman;
+         
+        //System.out.println("eleman = " + eleman.veri+" " + eleman.sonraki.veri+" " + eleman.sonraki.sonraki.veri);
+        for (int i=0; i < indis; i++) {
+            eleman = eleman.sonraki;
+           // System.out.println("i:"+i);
+        }
+         //System.out.println("indis:"+indis);
+         //System.out.println("eleman:"+eleman.veri);
+        return eleman;
+    }
+
     public void temizle() {
-        ilkEleman.onceki = null;
+        ilkEleman.sonraki = null;
     }
 
     public int boyutuGetir() {
@@ -131,6 +148,17 @@ public class HybridArray {
             gec = gec.sonraki;
             veriler += ", " + String.valueOf(gec.veri);
         }
-        System.out.println("Veriler\n"+veriler);
+        System.out.println("Veriler\n" + veriler);
+    }
+    
+      public void ekranaYaz(String mesaj) {
+        String veriler ="";
+        BagliListe gec = ilkEleman;
+        veriler += String.valueOf(gec.veri);
+        while (gec.sonraki != null) {
+            gec = gec.sonraki;
+            veriler += ", " + String.valueOf(gec.veri);
+        }
+        System.out.println(mesaj+"\nVeriler: " + veriler);
     }
 }

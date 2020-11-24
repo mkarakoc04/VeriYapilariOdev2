@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package veriyapilariodev2;
 
 /**
@@ -11,11 +6,21 @@ package veriyapilariodev2;
  */
 public class TestHybridArray {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        HybridArray liste = new HybridArray();
+        liste.basaEkle(6);
+        liste.ekranaYaz("Başa ekleme yaptık");
+
+        liste.basaEkle(16);
+        liste.ekranaYaz("Başa ekleme yaptık");
+
+        liste.sonaEkle(-45);
+        liste.sonaEkle(102);
+        liste.ekranaYaz("Sona iki kere ekleme yaptık");
+
+        liste.arayaEkle(1, 11);
+        liste.arayaEkle(3, 0);
+        liste.ekranaYaz("Araya iki kere ekleme yaptık");
     }
-    
+
 }
